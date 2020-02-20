@@ -25,7 +25,7 @@ function randomizeImage() {
   const imgElement = document.createElement('img');
   imgElement.src = imgUrl;
 
-  var imageContainer = document.getElementById('random-image-container');
+  const imageContainer = document.getElementById('random-image-container');
   // Remove the previous image.
   imageContainer.innerHTML = '';
   imageContainer.appendChild(imgElement);
