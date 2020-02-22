@@ -1,0 +1,23 @@
+ /* Create flex box */
+#container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#nav {
+    height: 10%;
+}
+
+#greeting-container {
+    margin-bottom: 10px;
+}
+
+#home-img img {
+    height: auto;
+    max-width: 50%;
+    width: auto;
+}
