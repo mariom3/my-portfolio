@@ -1,9 +1,19 @@
-#content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
+ /* Create flex box */
+body{
+    background: url(images/bg.jpg) no-repeat;
+    background-size: 100%;
+    background-position-y: -110px;
+    margin:0;
 }
 
-#greeting-container {
-  margin-top: 20px;
+#container {
+    background: red;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 50%;
 }
