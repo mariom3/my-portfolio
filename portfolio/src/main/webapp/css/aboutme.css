@@ -3,7 +3,7 @@ html, body {
     width: 100%;
 }
 
-body{
+body {
     margin: 0;
 }
 
@@ -14,11 +14,6 @@ body{
     font-family: Garamond;
     height: 100%;
     width: 100%;
-}
-
-#top-ref {
-    width:100%;
-    height: auto;
 }
 
 #wide-top {
