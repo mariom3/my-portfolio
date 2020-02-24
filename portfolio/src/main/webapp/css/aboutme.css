@@ -1,0 +1,60 @@
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+#container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    font-family: Garamond;
+    height: 100%;
+    width: 100%;
+}
+
+#wide-top {
+    background: url(../images/me.jpg) bottom no-repeat;
+    background-size: cover;
+    flex-shrink: 0;
+    height: 70%;
+    width: 100%;
+}
+
+#text-content {
+    font-size: 14pt;
+    height: auto;
+    padding-bottom: 1%;
+    width: 30%;
+}
+
+#text-content h1{
+    font-family: Verdana, Tahoma, sans-serif;
+    font-weight: bold;
+    padding-top: 5%;
+}
+
+#footer {
+    font-family: Verdana, Tahoma, sans-serif;
+    height: 5%;
+    padding-bottom: 1%;
+    width: auto;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+a:hover {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:visited{
+    color: black;
+    text-decoration: none;
+}
