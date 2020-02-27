@@ -15,6 +15,8 @@
 package com.google.sps.servlets;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map.Entry;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,9 +26,35 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    response.getWriter().println("Hello Mario! I am supposed to be a comment...but I'm not quite there yet.");
-  }
+    private HashMap<String, String> comments;
+
+    @Override
+    public void init() {
+        comments = new HashMap<String, String>();
+        comments.put("Mario", "Hi!");
+        comments.put("Mario's imaginary friend", "Hi! What are you going?");
+        comments.put("Mario", "Just learning how to use JSON");
+        comments.entrySet().forEach(entry->{
+            System.out.println(entry.getKey() + " " + entry.getValue());  
+        });
+    } 
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String json = convertToJson(comments);
+        System.out.println("Sending string: " + json);
+        response.setContentType("application/json;");
+        response.getWriter().println(json);
+    }
+
+    public String convertToJson(HashMap<String, String> comments) {
+        String json = "{ \"comments\": [";
+        for(Entry<String, String> entry : comments.entrySet()){
+            json += "{\"userName\": \"" + entry.getKey()
+                + "\", \"comment\": \"" + entry.getValue() + "\"},";
+        }
+        json = json.substring(0, json.length() - 1);
+        json += "]}";
+        return json;
+    }
 }
