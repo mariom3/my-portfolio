@@ -27,7 +27,7 @@ body {
 #text-content {
     font-size: 14pt;
     height: auto;
-    padding-bottom: 1%;
+    padding-bottom: 1em;
     width: 30%;
 }
 
@@ -39,9 +39,20 @@ body {
 
 #footer {
     font-family: Verdana, Tahoma, sans-serif;
-    height: 5%;
-    padding-bottom: 1%;
+    height: auto;
+    padding-bottom: 2em;
+    text-align: center;
     width: auto;
+}
+
+#footer button {
+    border-radius: 0;
+    border-width: 2px;
+}
+
+#comments {
+    padding-top: 1em;
+    text-align: left;
 }
 
 a {
