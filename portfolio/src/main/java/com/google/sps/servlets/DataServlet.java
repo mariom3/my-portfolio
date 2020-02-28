@@ -16,6 +16,7 @@ package com.google.sps.servlets;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,16 +27,15 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-    private HashMap<String, String> comments;
+    private Map<String, String> comments = new HashMap<String, String>();
 
     @Override
     public void init() {
-        comments = new HashMap<String, String>();
         comments.put("Mario", "Hi!");
         comments.put("Mario's imaginary friend", "Hi! What are you going?");
         comments.put("Mario", "Just learning how to use JSON");
         comments.entrySet().forEach(entry->{
-            System.out.println(entry.getKey() + " " + entry.getValue());  
+            System.out.println(entry.getKey() + ": " + entry.getValue());  
         });
     } 
 
@@ -47,7 +47,7 @@ public class DataServlet extends HttpServlet {
         response.getWriter().println(json);
     }
 
-    public String convertToJson(HashMap<String, String> comments) {
+    public String convertToJson(Map<String, String> comments) {
         String json = "{ \"comments\": [";
         for(Entry<String, String> entry : comments.entrySet()){
             json += "{\"userName\": \"" + entry.getKey()
