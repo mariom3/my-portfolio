@@ -13,17 +13,18 @@
 // limitations under the License.
 
 function getComments() {
-    fetch('/data').then(response => response.json()).then((json) => {
+  fetch('/data').then(response => response.json()).then((json) => {
         
-        const commentsElement = document.getElementById('comments');
-        commentsElement.innerText = '';
-        const comments = json.comments;
-        console.log('Received: ' + comments);
-        for (let i = 0; i < comments.length; i++) {
-            commentsElement.appendChild(
-                createListElement(comments[i].userName + ': ' + comments[i].comment));
-        }
-    });
+    const commentsElement = document.getElementById('comments');
+    commentsElement.innerText = '';
+    const comments = json.comments;
+    console.log('Received: ' + comments);
+    for (let i = 0; i < comments.length; i++) {
+      commentsElement.appendChild(
+        createListElement(comments[i].userName + ': ' + comments[i].comment));
+    }
+
+  });
 }
 
 function createListElement(text) {
