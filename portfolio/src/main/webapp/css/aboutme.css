@@ -45,15 +45,21 @@ body {
     width: auto;
 }
 
-#footer button {
-    border-radius: 0;
-    border-width: 2px;
+#add-comment {
+  text-align: right;
 }
 
 #comments {
     padding-top: 1em;
     text-align: left;
 }
+
+.custom-btn {
+    border-radius: 0;
+    border: 2px solid black;
+    color: black;
+}
+
 
 a {
     color: black;
