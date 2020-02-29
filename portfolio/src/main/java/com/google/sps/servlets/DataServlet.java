@@ -31,34 +31,25 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void init() {
-    comments.add(new ArrayList<String>());
-    comments.add(new ArrayList<String>());
-    comments.add(new ArrayList<String>());
-    comments.get(0).add("Mario");
-    comments.get(0).add("Hi!");
-    comments.get(1).add("Mario's imaginary friend");
-    comments.get(1).add("Hi! What are you going?");
-    comments.get(2).add("Mario");
-    comments.get(2).add("Just learning how to use JSON");
+    comments.add(buildComment("Mario", "Hi!"));
+    comments.add(buildComment("Mario's imaginary friend", "Hi! What are you going?"));
+    comments.add(buildComment("Mario", "Just learning how to use JSON"));
   } 
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String json = convertToJson(comments);
-    System.out.println("Sending string: " + json);
     response.setContentType("application/json;");
     response.getWriter().println(json);
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    comments.add(new ArrayList<String>());
-    comments.get(comments.size()-1).add(request.getParameter("display-name"));
-    comments.get(comments.size()-1).add(request.getParameter("comment"));
+    comments.add(buildComment(request.getParameter("display-name"), request.getParameter("comment")));
     response.sendRedirect("/aboutme.html");
   }
 
-  public String convertToJson(List<List<String>> comments) {
+  private String convertToJson(List<List<String>> comments) {
     String json = "{ \"comments\": [";
     for(List<String> comment : comments){
       json += "{\"userName\": \"" + comment.get(0)
@@ -67,6 +58,14 @@ public class DataServlet extends HttpServlet {
     json = json.substring(0, json.length() - 1);
     json += "]}";
     return json;
+  }
+
+  private List<String> buildComment(String userName, String comment) {
+      // Every comment structure contains the display name of the user that posted the comment
+      List<String> commentStruct = new ArrayList<String>();
+      commentStruct.add(userName);
+      commentStruct.add(comment);
+      return commentStruct;
   }
 
 }
