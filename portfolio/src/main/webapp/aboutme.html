@@ -9,7 +9,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="getComments()">
     <div id="container">
 
         <div id="wide-top"></div>
@@ -54,9 +54,9 @@
             </div>
             <div id="add-comment">
                 <br>
-                <form action="/data">
-                    <label for="fname">Display Name:</label>
-                    <input type="text" id="displayName" name="fname" value=" anonymous"><br>
+                <form action="/data" method="POST">
+                    <label for="display-name">Display Name:</label>
+                    <input type="text" id="display-name" name="display-name" value=" anonymous"><br>
                     <textarea id="comment" name="comment" rows="5" cols="33">Add a comment...</textarea><br>
                     <input class="btn btn-outline-dark custom-btn" type="submit" value="SUBMIT">
                 </form>
