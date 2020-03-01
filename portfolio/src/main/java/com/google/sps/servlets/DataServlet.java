@@ -14,6 +14,11 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,50 +27,43 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  // IMPROVE: redundently storing display names
-  private List<List<String>> comments = new ArrayList<List<String>>();
-
-  @Override
-  public void init() {
-    comments.add(buildComment("Mario", "Hi!"));
-    comments.add(buildComment("Mario's imaginary friend", "Hi! What are you going?"));
-    comments.add(buildComment("Mario", "Just learning how to use JSON"));
-  } 
+  DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String json = convertToJson(comments);
+    String json = convertCommentsToJson();
     response.setContentType("application/json;");
     response.getWriter().println(json);
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    comments.add(buildComment(request.getParameter("display-name"), request.getParameter("comment")));
+    saveComment(request.getParameter("display-name"), request.getParameter("comment"));
     response.sendRedirect("/aboutme.html");
   }
 
-  private String convertToJson(List<List<String>> comments) {
+  private String convertCommentsToJson() {
+    Query query = new Query("Comment");
+    PreparedQuery results = datastore.prepare(query);
+    
     String json = "{ \"comments\": [";
-    for(List<String> comment : comments){
-      json += "{\"userName\": \"" + comment.get(0)
-        + "\", \"comment\": \"" + comment.get(1) + "\"},";
+    for (Entity comment : results.asIterable()) {
+      json += "{\"userName\": \"" + comment.getProperty("userName") 
+      + "\", \"comment\": \"" + comment.getProperty("comment") + "\"},";
     }
     json = json.substring(0, json.length() - 1);
     json += "]}";
     return json;
   }
 
-  private List<String> buildComment(String userName, String comment) {
-      // Every comment structure contains the display name of the user that posted the comment
-      List<String> commentStruct = new ArrayList<String>();
-      commentStruct.add(userName);
-      commentStruct.add(comment);
-      return commentStruct;
+  private void saveComment(String userName, String comment) {
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("userName", userName);
+    commentEntity.setProperty("comment", comment);
+    datastore.put(commentEntity);
   }
 
 }
