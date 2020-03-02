@@ -29,7 +29,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-
   DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
   @Override
@@ -48,11 +47,11 @@ public class DataServlet extends HttpServlet {
   private String convertCommentsToJson() {
     Query query = new Query("Comment");
     PreparedQuery results = datastore.prepare(query);
-    
+
     String json = "{ \"comments\": [";
     for (Entity comment : results.asIterable()) {
-      json += "{\"userName\": \"" + comment.getProperty("userName") 
-      + "\", \"comment\": \"" + comment.getProperty("comment") + "\"},";
+      json += "{\"userName\": \"" + comment.getProperty("userName") + "\", \"comment\": \""
+          + comment.getProperty("comment") + "\"},";
     }
     json = json.substring(0, json.length() - 1);
     json += "]}";
@@ -65,5 +64,4 @@ public class DataServlet extends HttpServlet {
     commentEntity.setProperty("comment", comment);
     datastore.put(commentEntity);
   }
-
 }
