@@ -19,6 +19,8 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+  UserService userService = UserServiceFactory.getUserService();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -40,15 +43,26 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    saveComment(request.getParameter("display-name"), request.getParameter("comment"));
-    response.sendRedirect("/aboutme.html");
+    if (userService.isUserLoggedIn()) {
+      String userEmail = userService.getCurrentUser().getEmail();
+      String urlToRedirectToAfterUserLogsOut = "/";
+      String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
+      saveComment(request.getParameter("display-name"), request.getParameter("comment"));
+      response.sendRedirect("/aboutme.html");
+    } else {
+      String urlToRedirectToAfterUserLogsIn = "/aboutme.html";
+      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+      response.sendRedirect(loginUrl);
+    }
+
   }
 
   private String convertCommentsToJson() {
     Query query = new Query("Comment");
     PreparedQuery results = datastore.prepare(query);
+    int loggedIn = userService.isUserLoggedIn() ? 1 : 0;
 
-    String json = "{ \"comments\": [";
+    String json = "{ \"loggedInStatus\": " + loggedIn +", \"comments\": [";
     for (Entity comment : results.asIterable()) {
       json += "{\"userName\": \"" + comment.getProperty("userName") + "\", \"comment\": \""
           + comment.getProperty("comment") + "\"},";
