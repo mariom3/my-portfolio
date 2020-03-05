@@ -13,7 +13,7 @@
 // limitations under the License.
 
 
-//TODO: Add logout button
+// TODO: Add logout button
 function getComments() {
   fetch('/data').then(response => response.json()).then((json) => {
     const commentsElement = document.getElementById('comments');
