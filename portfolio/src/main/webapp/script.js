@@ -12,12 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
+// TODO: Add logout button
 function getComments() {
   fetch('/data').then(response => response.json()).then((json) => {
     const commentsElement = document.getElementById('comments');
     commentsElement.innerText = '';
+    const loggedInStatus = json.loggedInStatus;
     const comments = json.comments;
-    console.log('Received: ' + comments);
+    console.log('Received: ' + comments + ", status: " + loggedInStatus);
     for (let i = 0; i < comments.length; i++) {
       commentsElement.appendChild(
           createCommentElement(comments[i].userName, comments[i].comment));
