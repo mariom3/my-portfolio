@@ -50,8 +50,8 @@ body {
 }
 
 #comments {
-  text-align: left;
   font-weight: bold;
+  text-align: left;
 }
 
 .comment {

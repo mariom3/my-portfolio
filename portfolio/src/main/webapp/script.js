@@ -27,10 +27,10 @@ function getComments() {
 }
 
 function createCommentElement(userName, comment) {
-  const divElement = document.createElement('div');
   const pElement = document.createElement('p');
   pElement.textContent = comment;
   pElement.setAttribute('class', 'comment');
+  const divElement = document.createElement('div');
   divElement.innerText = userName + ': ';
   divElement.appendChild(pElement);
   return divElement;
