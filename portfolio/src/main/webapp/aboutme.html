@@ -10,12 +10,12 @@
     <script src="script.js"></script>
   </head>
   <body>
-    <div id="container">
+    <div class="top-image"></div>
+    <div class="container">
 
-        <div id="wide-top"></div>
-
-        <div id="text-content">
-            <h1>Welcome!</h1>
+        <div class="text-content">
+            <h1 class="title-font">Welcome!</h1>
+            <br>
             <p>Hi! I'm Mario; a computer science student and a cyber security practitioner. I love
                 adventure and challenges; I crave new experiences. Perhaps, that is why I am so fond
                 of traveling, trying new foods, and learning new languages. Throughout high school
@@ -47,23 +47,22 @@
 
         </div>
 
-        <div id="footer">
+        <div class="footer">
             <div>
-                <a href="index.html"><button type="button" class="btn btn-outline-dark custom-btn"><span class="glyphicon glyphicon-menu-left"></span> BACK</button></a>
-                <button type="button" onclick="getComments()" class="btn btn-outline-dark custom-btn"><span class="glyphicon glyphicon-menu-down"></span> COMMENTS</button>
+                <a href="index.html"><button type="button" class="btn btn-outline-dark custom-btn title-font"><span class="glyphicon glyphicon-menu-left"></span> BACK</button></a>
+                <button type="button" onclick="getComments()" class="btn btn-outline-dark custom-btn title-font"><span class="glyphicon glyphicon-menu-down"></span> COMMENTS</button>
             </div>
-            <div id="add-comment">
+            <div class="add-comment">
                 <br>
                 <form action="/data" method="POST">
                     <label for="display-name">Display Name:</label>
                     <input type="text" id="display-name" name="display-name" value=" anonymous"><br>
                     <textarea id="comment" name="comment" rows="5" cols="33">Add a comment...</textarea><br>
-                    <input class="btn btn-outline-dark custom-btn" type="submit" value="SUBMIT">
+                    <input class="btn btn-outline-dark custom-btn title-font" type="submit" value="SUBMIT">
                 </form>
             </div>
-            <div id="comments"></div>
+            <div class="text-content" id="comments"></div>
         </div>
-
     </div>
   </body>
 </html>

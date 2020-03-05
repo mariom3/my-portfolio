@@ -7,16 +7,16 @@ body {
     margin: 0;
 }
 
-#container {
+
+.container {
     align-items: center;
     display: flex;
     flex-direction: column;
     font-family: Garamond;
-    height: 100%;
-    width: 100%;
+    font-size: 1.25em;
 }
 
-#wide-top {
+.top-image {
     background: url(../images/me.jpg) bottom no-repeat;
     background-size: cover;
     flex-shrink: 0;
@@ -24,35 +24,25 @@ body {
     width: 100%;
 }
 
-#text-content {
-    font-size: 14pt;
-    height: auto;
-    padding-bottom: 1em;
-    width: 30%;
+.text-content {
+    padding: 1.5em;
+    padding-left: 3em;
+    padding-right: 3em;
+    background: red;
 }
 
-#text-content h1{
+.title-font {
     font-family: Verdana, Tahoma, sans-serif;
     font-weight: bold;
-    padding-top: 5%;
 }
 
-#footer {
-    font-family: Verdana, Tahoma, sans-serif;
-    height: auto;
-    padding-bottom: 2em;
+.footer {
+    background: green;
+    padding-bottom: 1.5em;
     text-align: center;
-    width: auto;
+    width: 100%;
 }
 
-#add-comment {
-  text-align: right;
-}
-
-#comments {
-    padding-top: 1em;
-    text-align: left;
-}
 
 .custom-btn {
     border-radius: 0;
@@ -60,6 +50,10 @@ body {
     color: black;
 }
 
+/* #comments {
+    padding-top: 1em;
+    text-align: left;
+} */
 
 a {
     color: black;
