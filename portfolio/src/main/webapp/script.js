@@ -20,15 +20,18 @@ function getComments() {
     const comments = json.comments;
     console.log('Received: ' + comments);
     for (let i = 0; i < comments.length; i++) {
-      commentsElement.appendChild(
-        createListElement(comments[i].userName + ': ' + comments[i].comment));
+      commentsElement.appendChild(createCommentElement(comments[i].userName, comments[i].comment));
     }
 
   });
 }
 
-function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text;
-  return liElement;
+function createCommentElement(userName, comment) {
+  const divElement = document.createElement('div');
+  const pElement = document.createElement('p');
+  pElement.textContent = comment;
+  pElement.setAttribute('class', 'comment');
+  divElement.innerText = userName + ': ';
+  divElement.appendChild(pElement);
+  return divElement;
 }
