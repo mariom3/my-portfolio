@@ -34,6 +34,9 @@ public class DataServlet extends HttpServlet {
   DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
   UserService userService = UserServiceFactory.getUserService();
 
+  private static final String REDIRECT_URL_AFTER_LOGIN = "/aboutme.html";
+  private static final String REDIRECT_URL_AFTER_LOGOUT = "/";
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String json = convertCommentsToJson();
@@ -45,13 +48,11 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     if (userService.isUserLoggedIn()) {
       String userEmail = userService.getCurrentUser().getEmail();
-      String urlToRedirectToAfterUserLogsOut = "/";
-      String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
+      String logoutUrl = userService.createLogoutURL(REDIRECT_URL_AFTER_LOGOUT);
       saveComment(request.getParameter("display-name"), request.getParameter("comment"));
       response.sendRedirect("/aboutme.html");
     } else {
-      String urlToRedirectToAfterUserLogsIn = "/aboutme.html";
-      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+      String loginUrl = userService.createLoginURL(REDIRECT_URL_AFTER_LOGIN);
       response.sendRedirect(loginUrl);
     }
 
