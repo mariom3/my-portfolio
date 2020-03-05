@@ -23,13 +23,17 @@ function getComments() {
     console.log('Received: ' + comments + ", status: " + loggedInStatus);
     for (let i = 0; i < comments.length; i++) {
       commentsElement.appendChild(
-          createListElement(comments[i].userName + ': ' + comments[i].comment));
+          createCommentElement(comments[i].userName, comments[i].comment));
     }
   });
 }
 
-function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text;
-  return liElement;
+function createCommentElement(userName, comment) {
+  const pElement = document.createElement('p');
+  pElement.textContent = comment;
+  pElement.setAttribute('class', 'comment');
+  const divElement = document.createElement('div');
+  divElement.innerText = userName + ': ';
+  divElement.appendChild(pElement);
+  return divElement;
 }
