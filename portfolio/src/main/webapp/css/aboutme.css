@@ -28,6 +28,7 @@ body {
     padding: 1.5em;
     padding-left: 3em;
     padding-right: 3em;
+    /* background: red; */
 }
 
 .title-font {
@@ -48,10 +49,22 @@ body {
     color: black;
 }
 
-/* #comments {
-    padding-top: 1em;
-    text-align: left;
-} */
+#comments {
+  text-align: left;
+  font-weight: bold;
+}
+
+.comment {
+  background: #E8E8ED;
+  font-weight: normal;
+  padding: .3em;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.comment-spacing {
+  padding: .5em;
+}
 
 a {
     color: black;
