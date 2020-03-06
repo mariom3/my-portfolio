@@ -13,14 +13,12 @@
 // limitations under the License.
 
 
-// TODO: Add logout button
+// TODO: Separate into 'getComments' and 'getLoggedInStatus'
 function getComments() {
   fetch('/data').then(response => response.json()).then((json) => {
     const commentsElement = document.getElementById('comments');
     commentsElement.innerText = '';
-    const loggedInStatus = json.loggedInStatus;
     const comments = json.comments;
-    console.log('Received: ' + comments + ", status: " + loggedInStatus);
     for (let i = 0; i < comments.length; i++) {
       commentsElement.appendChild(
           createCommentElement(comments[i].userName, comments[i].comment));
@@ -36,4 +34,32 @@ function createCommentElement(userName, comment) {
   divElement.innerText = userName + ': ';
   divElement.appendChild(pElement);
   return divElement;
+}
+
+function getLoggedInStatus() {
+  fetch('/data').then(response => response.json()).then((json) => {
+    const loggedIn = json.loggedInStatus;
+
+    if (loggedIn) {
+      displayElementWithId('login-container', false);
+      const pElement = document.getElementById('display-user');
+      pElement.textContent = "Logged in as: " + json.userEmail;
+      displayElementWithId('display-user', true);
+      displayElementWithId('comment-form', true);
+      document.getElementById('logout-link').href = json.logoutUrl;
+    } else {
+      document.getElementById('login-btn').href = json.loginUrl;
+      displayElementWithId('login-container', true);
+      displayElementWithId('display-user', false);
+      displayElementWithId('comment-form', false);
+    }
+  });
+}
+
+
+function displayElementWithId(elementId, show) {
+  if (show)
+    document.getElementById(elementId).style.display = "block";
+  else 
+    document.getElementById(elementId).style.display = "none";
 }
