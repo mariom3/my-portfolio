@@ -40,29 +40,26 @@ function getLoggedInStatus() {
   fetch('/data').then(response => response.json()).then((json) => {
     const loggedIn = json.loggedInStatus;
 
-    if (loggedIn){
+    if (loggedIn) {
+      displayElementWithId('login-container', false);
       const pElement = document.getElementById('display-user');
-      pElement.style.display = "block";
       pElement.textContent = "Logged in as: " + json.userEmail;
+      displayElementWithId('display-user', true);
+      displayElementWithId('comment-form', true);
       document.getElementById('logout-link').href = json.logoutUrl;
-      document.getElementById('comment-form').style.display = "block";
-    }else
-      createLoginButton(json.loginUrl);
+    } else {
+      document.getElementById('login-btn').href = json.loginUrl;
+      displayElementWithId('login-container', true);
+      displayElementWithId('display-user', false);
+      displayElementWithId('comment-form', false);
+    }
   });
 }
 
-function createLoginButton(loginUrl) {
-  document.getElementById('display-user').style.display = "none";
-  document.getElementById('comment-form').style.display = "none";
 
-  const loginButton = document.createElement('button');
-  loginButton.innerText = 'LOGIN TO ADD A COMMENT';
-  loginButton.setAttribute('class', 'btn btn-outline-dark custom-btn title-font');
-
-  const loginButtonAnchor = document.createElement('a');
-  loginButtonAnchor.setAttribute('href', loginUrl);
-  loginButtonAnchor.appendChild(loginButton);
-
-  const addCommentElement = document.getElementById('login-logout');
-  addCommentElement.appendChild(loginButtonAnchor);
+function displayElementWithId(elementId, show) {
+  if (show)
+    document.getElementById(elementId).style.display = "block";
+  else 
+    document.getElementById(elementId).style.display = "none";
 }
