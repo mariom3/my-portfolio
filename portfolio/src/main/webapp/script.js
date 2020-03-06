@@ -19,7 +19,6 @@ function getComments() {
     const commentsElement = document.getElementById('comments');
     commentsElement.innerText = '';
     const comments = json.comments;
-    console.log('Received: ' + comments + ", status: " + loggedInStatus);
     for (let i = 0; i < comments.length; i++) {
       commentsElement.appendChild(
           createCommentElement(comments[i].userName, comments[i].comment));
@@ -39,30 +38,21 @@ function createCommentElement(userName, comment) {
 
 function getLoggedInStatus() {
   fetch('/data').then(response => response.json()).then((json) => {
-    const loginButton = document.getElementById('login-logout');
     const loggedIn = json.loggedInStatus;
-    if (loggedIn) {
-      // add 'logged in as __, [logout]'
-      // add form
-      createCommentForm();
-    }else {
-      // login to comment
-      const loginButton = document.createElement('button');
-      loginButton.innerText = 'LOGIN TO ADD A COMMENT';
-      loginButton.setAttribute('class', 'btn btn-outline-dark custom-btn title-font');
-      addCommentElement.appendChild(loginButton);
-    }
+    
+    if (loggedIn)
+      createCommentForm(json.logoutUrl, json.userEmail);
+    else
+      createLoginButton(json.loginUrl);
   });
 }
 
-function createCommentForm() {
-  const email = "mmorales@sps-program.com";
+function createCommentForm(logoutUrl, userEmail) {
 
   const addCommentElement = document.getElementById('login-logout');
-  addCommentElement.innerText = '';
 
   const pElement = document.createElement('p');
-  pElement.textContent = "Logged in as: " + email;
+  pElement.textContent = "Logged in as: " + userEmail;
 
   const addCommentForm = document.createElement('form');
   addCommentForm.setAttribute('action', '/data');
@@ -79,9 +69,13 @@ function createCommentForm() {
   logoutButton.innerText = 'LOGOUT';
   logoutButton.setAttribute('class', 'btn btn-outline-dark custom-btn title-font');
 
+  const logoutButtonAnchor = document.createElement('a');
+  logoutButtonAnchor.setAttribute('href', logoutUrl);
+  logoutButtonAnchor.appendChild(logoutButton);
+
   const logoutButtonContainer = document.createElement('div');
   logoutButtonContainer.innerText = '';
-  logoutButtonContainer.appendChild(logoutButton);
+  logoutButtonContainer.appendChild(logoutButtonAnchor);
   logoutButtonContainer.setAttribute('style', 'padding-right: .3em; display: inline;');
 
   const submitButton = document.createElement('input');
@@ -100,4 +94,17 @@ function createCommentForm() {
   addCommentForm.appendChild(submitButtonContainer);
   addCommentElement.appendChild(pElement);
   addCommentElement.appendChild(addCommentForm);
+}
+
+function createLoginButton(loginUrl) {
+  const loginButton = document.createElement('button');
+  loginButton.innerText = 'LOGIN TO ADD A COMMENT';
+  loginButton.setAttribute('class', 'btn btn-outline-dark custom-btn title-font');
+  
+  const loginButtonAnchor = document.createElement('a');
+  loginButtonAnchor.setAttribute('href', loginUrl);
+  loginButtonAnchor.appendChild(loginButton);
+
+  const addCommentElement = document.getElementById('login-logout');
+  addCommentElement.appendChild(loginButtonAnchor);
 }
