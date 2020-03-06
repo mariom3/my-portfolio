@@ -46,15 +46,14 @@ function getLoggedInStatus() {
       pElement.textContent = "Logged in as: " + json.userEmail;
       document.getElementById('logout-link').href = json.logoutUrl;
       document.getElementById('comment-form').style.display = "block";
-      // createCommentForm(json.logoutUrl, json.userEmail);
     }else
       createLoginButton(json.loginUrl);
   });
 }
 
 function createLoginButton(loginUrl) {
-  document.getElementById('display-user').style.display = "hide";
-  document.getElementById('comment-form').style.display = "hide";
+  document.getElementById('display-user').style.display = "none";
+  document.getElementById('comment-form').style.display = "none";
 
   const loginButton = document.createElement('button');
   loginButton.innerText = 'LOGIN TO ADD A COMMENT';

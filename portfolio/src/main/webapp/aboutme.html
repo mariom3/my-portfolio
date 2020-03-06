@@ -53,8 +53,8 @@
                 <button type="button" onclick="getComments()" class="btn btn-outline-dark custom-btn title-font"><span class="glyphicon glyphicon-menu-down"></span> COMMENTS</button>
             </div>
             <div class="add-comment" id="login-logout">
-              <p id="display-user"></p>
-              <div id="comment-form">
+              <p id="display-user" style="display: block;"></p>
+              <div id="comment-form" style="display: block;">
                 <form action="/data" method="POST">
                   <textarea id="comment" name="comment" rows="5" cols="37">Add a comment...</textarea><br>
                   <div style="padding-right: .3em; display: inline;">
