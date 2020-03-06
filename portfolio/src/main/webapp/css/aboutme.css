@@ -48,11 +48,6 @@ body {
     color: black;
 }
 
-#comments {
-  font-weight: bold;
-  text-align: left;
-}
-
 .comment {
   background: #E8E8ED;
   font-weight: normal;
@@ -60,6 +55,17 @@ body {
   padding-left: 1em;
   padding-right: 1em;
 }
+
+#login-logout {
+  padding: .3em;
+  background: red;
+}
+
+#comments {
+  font-weight: bold;
+  text-align: left;
+}
+
 
 a {
     color: black;

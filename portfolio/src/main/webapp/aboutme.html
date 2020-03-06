@@ -9,7 +9,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="getLoggedInStatus()">
     <div class="top-image"></div>
     <div class="container">
 
@@ -48,19 +48,11 @@
         </div>
 
         <div class="footer">
-            <div>
+            <div style="padding-bottom: .5em;">
                 <a href="index.html"><button type="button" class="btn btn-outline-dark custom-btn title-font"><span class="glyphicon glyphicon-menu-left"></span> BACK</button></a>
                 <button type="button" onclick="getComments()" class="btn btn-outline-dark custom-btn title-font"><span class="glyphicon glyphicon-menu-down"></span> COMMENTS</button>
             </div>
-            <div class="add-comment">
-                <br>
-                <form action="/data" method="POST">
-                    <label for="display-name">Display Name:</label>
-                    <input type="text" id="display-name" name="display-name" value=" anonymous"><br>
-                    <textarea id="comment" name="comment" rows="5" cols="33">Add a comment...</textarea><br>
-                    <input class="btn btn-outline-dark custom-btn title-font" type="submit" value="SUBMIT">
-                </form>
-            </div>
+            <div class="add-comment" id="login-logout"></div>
             <div class="text-content" id="comments"></div>
         </div>
     </div>
