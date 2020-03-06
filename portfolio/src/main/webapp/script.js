@@ -39,68 +39,27 @@ function createCommentElement(userName, comment) {
 function getLoggedInStatus() {
   fetch('/data').then(response => response.json()).then((json) => {
     const loggedIn = json.loggedInStatus;
-    
-    if (loggedIn)
-      createCommentForm(json.logoutUrl, json.userEmail);
-    else
+
+    if (loggedIn){
+      const pElement = document.getElementById('display-user');
+      pElement.style.display = "block";
+      pElement.textContent = "Logged in as: " + json.userEmail;
+      document.getElementById('logout-link').href = json.logoutUrl;
+      document.getElementById('comment-form').style.display = "block";
+      // createCommentForm(json.logoutUrl, json.userEmail);
+    }else
       createLoginButton(json.loginUrl);
   });
 }
 
-function createCommentForm(logoutUrl, userEmail) {
-
-  const addCommentElement = document.getElementById('login-logout');
-
-  const pElement = document.createElement('p');
-  pElement.textContent = "Logged in as: " + userEmail;
-
-  const addCommentForm = document.createElement('form');
-  addCommentForm.setAttribute('action', '/data');
-  addCommentForm.setAttribute('method', 'POST');
-
-  const commentTextArea = document.createElement('textarea');
-  commentTextArea.setAttribute('id', 'comment');
-  commentTextArea.setAttribute('name', 'comment');
-  commentTextArea.setAttribute('rows', '5');
-  commentTextArea.setAttribute('cols', '37');
-  commentTextArea.innerText = 'Add a comment...';
-
-  const logoutButton = document.createElement('button');
-  logoutButton.innerText = 'LOGOUT';
-  logoutButton.setAttribute('class', 'btn btn-outline-dark custom-btn title-font');
-
-  const logoutButtonAnchor = document.createElement('a');
-  logoutButtonAnchor.setAttribute('href', logoutUrl);
-  logoutButtonAnchor.appendChild(logoutButton);
-
-  const logoutButtonContainer = document.createElement('div');
-  logoutButtonContainer.innerText = '';
-  logoutButtonContainer.appendChild(logoutButtonAnchor);
-  logoutButtonContainer.setAttribute('style', 'padding-right: .3em; display: inline;');
-
-  const submitButton = document.createElement('input');
-  submitButton.setAttribute('class', 'btn btn-outline-dark custom-btn title-font');
-  submitButton.setAttribute('type', 'submit');
-  submitButton.setAttribute('value', 'SUBMIT');
-
-  const submitButtonContainer = document.createElement('div');
-  submitButtonContainer.innerText = '';
-  submitButtonContainer.appendChild(submitButton);
-  submitButtonContainer.setAttribute('style', 'padding-right: .3em; display: inline;');
-
-  addCommentForm.appendChild(commentTextArea);
-  addCommentForm.appendChild(document.createElement('br'));
-  addCommentForm.appendChild(logoutButtonContainer);
-  addCommentForm.appendChild(submitButtonContainer);
-  addCommentElement.appendChild(pElement);
-  addCommentElement.appendChild(addCommentForm);
-}
-
 function createLoginButton(loginUrl) {
+  document.getElementById('display-user').style.display = "hide";
+  document.getElementById('comment-form').style.display = "hide";
+
   const loginButton = document.createElement('button');
   loginButton.innerText = 'LOGIN TO ADD A COMMENT';
   loginButton.setAttribute('class', 'btn btn-outline-dark custom-btn title-font');
-  
+
   const loginButtonAnchor = document.createElement('a');
   loginButtonAnchor.setAttribute('href', loginUrl);
   loginButtonAnchor.appendChild(loginButton);
