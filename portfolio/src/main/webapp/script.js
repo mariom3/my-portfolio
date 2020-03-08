@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-// TODO: Separate into 'getComments' and 'getLoggedInStatus'
 function getComments() {
   fetch('/comments').then(response => response.json()).then((json) => {
     const commentsElement = document.getElementById('comments');
