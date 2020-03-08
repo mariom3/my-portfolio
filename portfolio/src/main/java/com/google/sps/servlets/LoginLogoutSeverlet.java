@@ -13,7 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/login-logout")
-public class LoginLogout extends HttpServlet {
+/** Servelet for serving login/logout URLs and other user data. */
+public class LoginLogoutSeverlet extends HttpServlet {
   private static final String REDIRECT_URL_AFTER_LOGIN = "/aboutme.html";
   private static final String REDIRECT_URL_AFTER_LOGOUT = "/index.html";
 

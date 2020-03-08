@@ -30,7 +30,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/comments")
-public class Comments extends HttpServlet {
+/** Servelet for handling comments posted by the user. */
+public class CommentServelet extends HttpServlet {
   DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
   private static final String REDIRECT_URL_AFTER_LOGIN = "/aboutme.html";
