@@ -49,16 +49,16 @@
 
         <div class="footer">
             <div style="padding-bottom: .5em;">
-                <a href="index.html" id="logout-link"><button type="button" class="btn btn-outline-dark custom-btn title-font"><span class="glyphicon glyphicon-menu-left"></span> BACK</button></a>
+                <a href="index.html"><button type="button" class="btn btn-outline-dark custom-btn title-font"><span class="glyphicon glyphicon-menu-left"></span> BACK</button></a>
                 <button type="button" onclick="getComments()" class="btn btn-outline-dark custom-btn title-font"><span class="glyphicon glyphicon-menu-down"></span> COMMENTS</button>
             </div>
             <div class="add-comment" id="login-logout">
               <p id="display-user" style="display: block;"></p>
               <div id="comment-form" style="display: block;">
-                <form action="/data" method="POST">
+                <form action="/comments" method="POST">
                   <textarea id="comment" name="comment" rows="5" cols="37">Add a comment...</textarea><br>
                   <div style="padding-right: .3em; display: inline;">
-                    <a href="/"><button class="btn btn-outline-dark custom-btn title-font">LOGOUT</button></a>
+                    <a href="/" id="logout-btn"><button type="button" class="btn btn-outline-dark custom-btn title-font">LOGOUT</button></a>
                   </div>
                   <div style="padding-right: .3em; display: inline;">
                     <input class="btn btn-outline-dark custom-btn title-font" type="submit" value="SUBMIT">

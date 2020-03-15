@@ -12,10 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-// TODO: Separate into 'getComments' and 'getLoggedInStatus'
 function getComments() {
-  fetch('/data').then(response => response.json()).then((json) => {
+  fetch('/comments').then(response => response.json()).then((json) => {
     const commentsElement = document.getElementById('comments');
     commentsElement.innerText = '';
     const comments = json.comments;
@@ -37,16 +35,14 @@ function createCommentElement(userName, comment) {
 }
 
 function getLoggedInStatus() {
-  fetch('/data').then(response => response.json()).then((json) => {
-    const loggedIn = json.loggedInStatus;
-
-    if (loggedIn) {
+  fetch('/login-logout').then(response => response.json()).then((json) => {
+    if (json.loggedIn) {
       displayElementWithId('login-container', false);
       const pElement = document.getElementById('display-user');
       pElement.textContent = "Logged in as: " + json.userEmail;
       displayElementWithId('display-user', true);
       displayElementWithId('comment-form', true);
-      document.getElementById('logout-link').href = json.logoutUrl;
+      document.getElementById('logout-btn').href = json.logoutUrl;
     } else {
       document.getElementById('login-btn').href = json.loginUrl;
       displayElementWithId('login-container', true);
