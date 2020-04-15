@@ -4,20 +4,20 @@
 	Description: Defines a CTA station. Extends GeoLocation to define its location.
 */
 
-package com.google.sps.servlets;
-
 public class CTAStation extends GeoLocation{
 
-	private String stationName;
+	private String name;
 	// Physical location of the station: elevated, surface, etc.
 	private String location;
 	private boolean isAccessible;
+    public int index;
 
 	public CTAStation(){
 		super();
 		setName("CTA Station");
 		setLocation("undefined");
 		setAccessibility(false);
+        this.index = -1;
 	}
 
 	public CTAStation(String name, double latitude, double longitude, String location, boolean isAccessible){
@@ -25,6 +25,7 @@ public class CTAStation extends GeoLocation{
 		setName(name);
 		setLocation(location);
 		setAccessibility(isAccessible);
+        this.index = -1;
 	}
 
 	public String getName() {
@@ -48,7 +49,7 @@ public class CTAStation extends GeoLocation{
 	}
 
 	public String toString() {
-		return (name + " ("+ index + ")" + ":\nAt: " + super.toString() + "\nLocated: " 
+		return (name + " ("+ index + ")" + ":\nAt: " + super.toString() + "\nLocated: "
 				+ location + "\nWheelchair Accessible? " + isAccessible);
 	}
 
